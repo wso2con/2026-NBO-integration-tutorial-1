@@ -1,0 +1,265 @@
+:root {
+  color-scheme: light;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f4f5f7;
+  color: #1a1a1a;
+}
+
+.app {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.brand .logo {
+  flex-shrink: 0;
+}
+
+.app-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  font-size: 0.92rem;
+  padding-top: 4px;
+}
+
+.user-chip .logout {
+  border: 1px solid #d7d9dd;
+  background: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.login-form {
+  max-width: 320px;
+}
+
+.muted {
+  color: #666;
+  font-size: 0.92rem;
+}
+
+.muted.small {
+  font-size: 0.8rem;
+}
+
+.error {
+  background: #fdecea;
+  color: #a12822;
+  border: 1px solid #f5c2be;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin: 20px 0 24px;
+}
+
+.tabs button {
+  border: 1px solid #d7d9dd;
+  background: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.92rem;
+}
+
+.tabs button.active {
+  background: #1f6feb;
+  color: #fff;
+  border-color: #1f6feb;
+}
+
+.panel {
+  background: #fff;
+  border: 1px solid #e4e6ea;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.panel h2 {
+  margin-top: 0;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 16px;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.form .full-width {
+  grid-column: 1 / -1;
+}
+
+.form input,
+.form select,
+.form textarea {
+  padding: 8px 10px;
+  border: 1px solid #d7d9dd;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: #fff;
+}
+
+.form textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+.form button,
+.decision-buttons button {
+  grid-column: 1 / -1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #1f6feb;
+  color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+  justify-self: start;
+}
+
+.form button:disabled,
+.decision-buttons button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.result-text {
+  margin: 10px 0 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  background: #e8f7ee;
+  border: 1px solid #a9dfbf;
+}
+
+.task-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.task-card {
+  border: 1px solid #e4e6ea;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.task-card-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+}
+
+.decision-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.decision-row input {
+  padding: 8px 10px;
+  border: 1px solid #d7d9dd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.decision-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.decision-buttons button {
+  grid-column: unset;
+  justify-self: unset;
+}
+
+.decision-buttons .approve {
+  background: #1e8e3e;
+}
+
+.decision-buttons .reject {
+  background: #d93025;
+}
+
+.badge {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.badge-SUBMITTED {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.badge-RUNNING {
+  background: #fff3cd;
+  color: #8a6d00;
+}
+
+.badge-COMPLETED {
+  background: #d9f2e3;
+  color: #146c33;
+}
+
+.badge-FAILED {
+  background: #fbdad7;
+  color: #a12822;
+}
+
+.role-badge {
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+.role-badge-CUSTOMER {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.role-badge-MANAGER {
+  background: #ede9fe;
+  color: #6d28d9;
+}

@@ -1,0 +1,29 @@
+# Workflow engine — runs against a local Temporal development server, the
+# same one ../backend uses. Each integration needs its own task queue so
+# they don't conflict when sharing that Temporal server.
+[ballerina.workflow]
+mode = "LOCAL"
+taskQueue = "EXPENSE_AGENT_QUEUE"
+
+# Management API — exposed at http://localhost:8234/workflow/, same as
+# ../backend (run only one of the two projects at a time - they'd otherwise
+# collide on this port and on the default HTTP listener's port).
+[ballerina.workflow.management]
+enableManagementApi = true
+port = 8234
+enableBasicAuth = false
+
+# Model provider credentials go here - NOT committed anywhere with real
+# values. Easiest path: open this folder in VS Code with the Ballerina
+# extension and run "Ballerina: Configure Default Model Provider" from the
+# Command Palette; it signs you in and writes the block below for you:
+#
+[ballerina.ai.wso2ProviderConfig]
+serviceUrl = "https://7eff1239-64bb-4663-b256-30a00d187a5c-prod.e1-us-east-azure.choreoapis.dev/copilot/llm-api/v1.0/openai"
+accessToken = "eyJ4NXQiOiJqSHlTb2Jacjc3b1lPQ0hjNGxRVmswM2hZdzgiLCJraWQiOiJOR05pTm1WaVpXUmhaRGMyWkdObU1XRXpOVFEzTVRRek5EUTNNR0V5WldRM01qQmlaVE5qT0RJMlpHUmhOekl6TURZelptUTVNR1U0WTJabE5URTJNQV9SUzI1NiIsInR5cCI6ImF0K2p3dCIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIzYmU1ZDI3ZC03ZGZhLTRlMjYtOTA0MC0xMGQ3ZmM5NWY1MDEiLCJhdXQiOiJBUFBMSUNBVElPTl9VU0VSIiwiaXNzIjoiaHR0cHM6Ly9hcGkuYXNnYXJkZW8uaW8vdC9iYWxsZXJpbmFjb3BpbG90L29hdXRoMi90b2tlbiIsImNsaWVudF9pZCI6Ill1bE5zSm1MOGRKT1RoNEhmNGJaMUZTaFhhVWEiLCJhdWQiOiJZdWxOc0ptTDhkSk9UaDRIZjRiWjFGU2hYYVVhIiwibmJmIjoxNzg5ODI5MTAzLCJhenAiOiJZdWxOc0ptTDhkSk9UaDRIZjRiWjFGU2hYYVVhIiwib3JnX2lkIjoiYTJmNzdkYTYtOWMyZS00MzNjLWIzM2QtZmE5Y2VlNTNmMGQ2Iiwic2NvcGUiOiJlbWFpbCIsImV4cCI6MTc4OTgzMjcwMywib3JnX25hbWUiOiJiYWxsZXJpbmFjb3BpbG90IiwiaWF0IjoxNzg5ODI5MTAzLCJqdGkiOiI2ZDk1MTVlMS1lMDY2LTRiZGItYTJlMi05NmUzZmEyYzMyNmYiLCJvcmdfaGFuZGxlIjoiYmFsbGVyaW5hY29waWxvdCJ9.JhuNACKz2Evy2KIr_VYORMxeNWYmIMiZC8Td-cUEyP-cdg6zOuTvUfQrv3zVjXq-P3PG55Tae5bscxDlA0pQkfQ-c8mZB-vZJ84y_7ESHnFrlBjrt6LrEYZCsnxZuKVE5A6S-111sRpvjMGbGfpY6a-g3opyYY8T9o8ohEWp0T12wA1BwZeJ-H3gnyQhWjcFHrUvXDRzqdd0TbfZkjwrLW11pZVClFhxDd1xo2wb1tnRoP_yUgnQc6qlfxiJydFPYXBexHH2uIZYDjrjB6lGQj_AdxcOHBq1arMDchlwRcLPUS-XFWr5diwdh_T0W7DXv9U30uY-RXljs1bMmeJBjg"
+# serviceUrl = "<generated>"
+# accessToken = "<generated>"
+#
+# To use a different provider (OpenAI, Anthropic, Azure OpenAI, ...) instead,
+# change the `claimsModel` client construction in workflow.bal and add that
+# provider's own configurable keys here.

@@ -1,0 +1,13 @@
+[package]
+org = "wso2con"
+name = "expense_agent"
+version = "0.1.0"
+distribution = "2201.13.6"
+
+[[dependency]]
+org = "ballerina"
+name = "workflow"
+version = "0.8.3"
+
+[build-options]
+observabilityIncluded = true
