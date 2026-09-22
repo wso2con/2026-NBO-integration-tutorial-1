@@ -1,0 +1,203 @@
+openapi: 3.0.3
+info:
+  title: Amani General Insurance - Claims API
+  version: 1.0.0
+  description: >
+    Claim lifecycle backend. Paths are relative to the /claims base path.
+    Mirrors the resources declared on the `service /claims` in main.bal.
+paths:
+  /:
+    get:
+      summary: List all claims
+      operationId: getAllClaims
+      responses:
+        "200":
+          description: Every claim on file
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {$ref: "#/components/schemas/Claim"}
+        "500": {$ref: "#/components/responses/ServerError"}
+  /health:
+    get:
+      summary: Liveness probe
+      operationId: claimsHealth
+      responses:
+        "200":
+          description: Service is up
+          content:
+            application/json: {schema: {type: object}}
+  /{claimId}:
+    get:
+      summary: Fetch a single claim
+      operationId: getClaim
+      parameters: [{$ref: "#/components/parameters/ClaimId"}]
+      responses:
+        "200": {$ref: "#/components/responses/ClaimOk"}
+        "404": {$ref: "#/components/responses/NotFound"}
+        "500": {$ref: "#/components/responses/ServerError"}
+  /{claimId}/journey:
+    get:
+      summary: Audit trail of everything that has happened to a claim
+      operationId: getClaimJourney
+      parameters: [{$ref: "#/components/parameters/ClaimId"}]
+      responses:
+        "200":
+          description: Ordered journey steps
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {$ref: "#/components/schemas/JourneyStep"}
+        "500": {$ref: "#/components/responses/ServerError"}
+  /{claimId}/request-documents:
+    post:
+      summary: Record that documents have been requested from the claimant
+      operationId: requestDocuments
+      parameters: [{$ref: "#/components/parameters/ClaimId"}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [missingDocuments]
+              properties:
+                missingDocuments: {type: array, items: {type: string}}
+      responses:
+        "200": {$ref: "#/components/responses/ClaimOk"}
+        "404": {$ref: "#/components/responses/NotFound"}
+        "500": {$ref: "#/components/responses/ServerError"}
+  /{claimId}/documents-received:
+    post:
+      summary: Record documents received from the claimant
+      operationId: documentsReceived
+      parameters: [{$ref: "#/components/parameters/ClaimId"}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [documents]
+              properties:
+                documents: {type: array, items: {type: string}}
+      responses:
+        "200": {$ref: "#/components/responses/ClaimOk"}
+        "404": {$ref: "#/components/responses/NotFound"}
+        "500": {$ref: "#/components/responses/ServerError"}
+  /{claimId}/decision:
+    post:
+      summary: Approve or reject a claim
+      operationId: decideClaim
+      parameters: [{$ref: "#/components/parameters/ClaimId"}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [decision]
+              properties:
+                decision: {type: string}
+                reason: {type: string, nullable: true}
+      responses:
+        "200": {$ref: "#/components/responses/ClaimOk"}
+        "404": {$ref: "#/components/responses/NotFound"}
+        "500": {$ref: "#/components/responses/ServerError"}
+  /{claimId}/escalate:
+    post:
+      summary: Hand a claim to a human adjuster
+      operationId: escalateClaim
+      parameters: [{$ref: "#/components/parameters/ClaimId"}]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [reason, summary]
+              properties:
+                reason: {type: string}
+                summary: {type: string}
+      responses:
+        "200": {$ref: "#/components/responses/ClaimOk"}
+        "404": {$ref: "#/components/responses/NotFound"}
+        "500": {$ref: "#/components/responses/ServerError"}
+  /{claimId}/payment:
+    post:
+      summary: Release payment for an approved claim
+      operationId: payClaim
+      parameters: [{$ref: "#/components/parameters/ClaimId"}]
+      responses:
+        "200": {$ref: "#/components/responses/ClaimOk"}
+        "404": {$ref: "#/components/responses/NotFound"}
+        "500": {$ref: "#/components/responses/ServerError"}
+  /{claimId}/reset:
+    post:
+      summary: Reset a claim to its initial state (demo convenience)
+      operationId: resetClaim
+      parameters: [{$ref: "#/components/parameters/ClaimId"}]
+      responses:
+        "200": {$ref: "#/components/responses/ClaimOk"}
+        "404": {$ref: "#/components/responses/NotFound"}
+        "500": {$ref: "#/components/responses/ServerError"}
+components:
+  parameters:
+    ClaimId:
+      name: claimId
+      in: path
+      required: true
+      description: The claim identifier, for example CLM-1042
+      schema: {type: string}
+  responses:
+    ClaimOk:
+      description: The claim in its current state
+      content:
+        application/json:
+          schema: {$ref: "#/components/schemas/Claim"}
+    NotFound:
+      description: No claim with that id exists
+      content:
+        application/json:
+          schema: {$ref: "#/components/schemas/ErrorResponse"}
+    ServerError:
+      description: Unexpected backend failure
+      content:
+        application/json:
+          schema: {$ref: "#/components/schemas/ErrorResponse"}
+  schemas:
+    Claim:
+      type: object
+      required: [claimId, customerId, claimType, description, amount, status,
+                 documentsReceived, missingDocuments, paymentStatus, createdAt, updatedAt]
+      properties:
+        claimId: {type: string}
+        customerId: {type: string}
+        claimType: {type: string}
+        description: {type: string}
+        amount: {type: number}
+        status: {type: string}
+        documentsReceived: {type: array, items: {type: string}}
+        missingDocuments: {type: array, items: {type: string}}
+        decision: {type: string, nullable: true}
+        decisionReason: {type: string, nullable: true}
+        paymentStatus: {type: string}
+        createdAt: {type: string}
+        updatedAt: {type: string}
+    JourneyStep:
+      type: object
+      required: [id, claimId, stepName, status, occurredAt]
+      properties:
+        id: {type: integer}
+        claimId: {type: string}
+        stepName: {type: string}
+        status: {type: string}
+        detail: {type: string, nullable: true}
+        occurredAt: {type: string}
+    ErrorResponse:
+      type: object
+      required: [message]
+      properties:
+        message: {type: string}

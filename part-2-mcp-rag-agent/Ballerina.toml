@@ -1,0 +1,3 @@
+[workspace]
+title = "Amani-Insurance-ClaimProcessor"
+packages = ["claimapi", "claimtools", "claimchat"]

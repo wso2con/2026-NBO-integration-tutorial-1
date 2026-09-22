@@ -1,0 +1,58 @@
+openapi: 3.0.3
+info:
+  title: Amani General Insurance - Customers API
+  version: 1.0.0
+  description: >
+    Claimant / policyholder lookups. Paths are relative to the /customers base
+    path. Mirrors the resources declared on the `service /customers` in main.bal.
+paths:
+  /health:
+    get:
+      summary: Liveness probe
+      operationId: customersHealth
+      responses:
+        "200":
+          description: Service is up
+          content:
+            application/json: {schema: {type: object}}
+  /{customerId}:
+    get:
+      summary: Fetch a single claimant
+      operationId: getCustomer
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The claimant identifier, for example CUST-2002
+          schema: {type: string}
+      responses:
+        "200":
+          description: The claimant record
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/Customer"}
+        "404":
+          description: No customer with that id exists
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorResponse"}
+        "500":
+          description: Unexpected backend failure
+          content:
+            application/json:
+              schema: {$ref: "#/components/schemas/ErrorResponse"}
+components:
+  schemas:
+    Customer:
+      type: object
+      required: [customerId, name, email, phone]
+      properties:
+        customerId: {type: string}
+        name: {type: string}
+        email: {type: string}
+        phone: {type: string}
+    ErrorResponse:
+      type: object
+      required: [message]
+      properties:
+        message: {type: string}

@@ -1,0 +1,17 @@
+schemaVersion: 1.2
+
+endpoints:
+  # The MCP streamable-HTTP endpoint. Declared explicitly because Devant's
+  # Ballerina endpoint scanner only auto-detects http:Listener services, not
+  # mcp:StreamableHttpListener - which is why this component deployed with no
+  # invokable URL in Test.
+  - name: claims-mcp
+    displayName: Claims Handling MCP
+    service:
+      basePath: /mcp
+      port: 9091
+    type: REST
+    networkVisibilities:
+      - Public
+      - Project
+    schemaFilePath: openapi.yaml
