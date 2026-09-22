@@ -1,0 +1,11 @@
+[package]
+org = "anupama"
+name = "approvalagent"
+version = "0.1.0"
+distribution = "2201.13.6"
+title = "approvalagent"
+
+[build-options]
+observabilityIncluded = true
+remoteManagement = true
+sticky = true

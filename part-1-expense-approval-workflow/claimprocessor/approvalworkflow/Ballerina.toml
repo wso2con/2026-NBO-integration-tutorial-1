@@ -1,0 +1,11 @@
+[package]
+org = "anupama"
+name = "approvalworkflow"
+version = "0.1.0"
+distribution = "2201.13.6"
+title = "approvalworkflow"
+
+[build-options]
+observabilityIncluded = true
+remoteManagement = true
+sticky = true

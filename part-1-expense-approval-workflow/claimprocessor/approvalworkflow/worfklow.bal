@@ -13,15 +13,10 @@ function expenseApproval(workflow:Context ctx, Claim claim) returns string|error
     }
 
     if claim.amount > autoApproveThreshold {
-        ApprovalDecision decision = check ctx->awaitHumanTask("approveExpense", "MANAGER",
-                payload = {
-                    claimId: claim.claimId,
-                    userName: claim.userName,
-                    amount: claim.amount,
-                    currency: claim.currency,
-                    category: claim.category,
-                    description: claim.description
-                },
+        ApprovalDecision decision = check ctx->awaitHumanTask("approveExpense",
+                claim,
+                userRoles = "MANAGER",
+                administratorRoles = "admin",
                 title = string `Approve claim ${claim.claimId}`,
                 description = string `${claim.userName} submitted a ${claim.amount} ${claim.currency} claim for ${claim.category}: ${claim.description}`);
         if !decision.approved {

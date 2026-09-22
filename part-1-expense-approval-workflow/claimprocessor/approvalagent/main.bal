@@ -1,6 +1,10 @@
 import ballerina/http;
 import ballerina/workflow;
 import ballerina/workflow.management as _;
+import ballerina/workflow.management.rest as _;
+import ballerinax/metrics.logs as _;
+
+import wso2/icp.runtime.bridge as _;
 
 listener http:Listener httpDefaultListener = http:getDefaultListener();
 
@@ -34,3 +38,4 @@ service /expenses on httpDefaultListener {
         return {workflowId, status: "COMPLETED", result};
     }
 }
+

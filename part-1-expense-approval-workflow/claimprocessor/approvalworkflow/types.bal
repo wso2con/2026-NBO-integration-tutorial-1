@@ -12,3 +12,11 @@ public type ApprovalDecision record {|
     boolean approved;
     string comment;
 |};
+
+public type Response record {|
+    string claimId = "";
+    string workflowId;
+    string status;
+    json result = "";
+|};
+

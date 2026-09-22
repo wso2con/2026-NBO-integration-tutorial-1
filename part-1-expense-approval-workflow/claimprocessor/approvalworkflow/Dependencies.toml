@@ -5,7 +5,23 @@
 
 [ballerina]
 dependencies-toml-version = "2"
-distribution-version = "2201.13.5-20260806-095500-8ec89718"
+distribution-version = "2201.13.6"
+
+[[package]]
+org = "anupama"
+name = "approvalworkflow"
+version = "0.1.0"
+dependencies = [
+	{org = "ballerina", name = "http"},
+	{org = "ballerina", name = "io"},
+	{org = "ballerina", name = "workflow"},
+	{org = "ballerinai", name = "observe"},
+	{org = "ballerinax", name = "metrics.logs"},
+	{org = "wso2", name = "icp.runtime.bridge"}
+]
+modules = [
+	{org = "anupama", packageName = "approvalworkflow", moduleName = "approvalworkflow"}
+]
 
 [[package]]
 org = "ballerina"
@@ -36,11 +52,6 @@ dependencies = [
 	{org = "ballerina", name = "url"},
 	{org = "ballerina", name = "uuid"},
 	{org = "ballerina", name = "yaml"}
-]
-modules = [
-	{org = "ballerina", packageName = "ai", moduleName = "ai"},
-	{org = "ballerina", packageName = "ai", moduleName = "ai.intelligence"},
-	{org = "ballerina", packageName = "ai", moduleName = "ai.observe"}
 ]
 
 [[package]]
@@ -294,6 +305,7 @@ version = "1.3.0"
 dependencies = [
 	{org = "ballerina", name = "http"},
 	{org = "ballerina", name = "jballerina.java"},
+	{org = "ballerina", name = "log"},
 	{org = "ballerina", name = "uuid"}
 ]
 
@@ -412,15 +424,19 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "workflow"
-version = "0.8.3"
+version = "0.10.0"
 dependencies = [
 	{org = "ballerina", name = "ai"},
 	{org = "ballerina", name = "email"},
 	{org = "ballerina", name = "http"},
+	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "jballerina.java"},
+	{org = "ballerina", name = "jwt"},
+	{org = "ballerina", name = "lang.array"},
 	{org = "ballerina", name = "lang.runtime"},
 	{org = "ballerina", name = "log"},
 	{org = "ballerina", name = "mime"},
+	{org = "ballerina", name = "observe"},
 	{org = "ballerina", name = "soap"},
 	{org = "ballerina", name = "test"},
 	{org = "ballerina", name = "time"}
@@ -429,7 +445,9 @@ modules = [
 	{org = "ballerina", packageName = "workflow", moduleName = "workflow"},
 	{org = "ballerina", packageName = "workflow", moduleName = "workflow.activity"},
 	{org = "ballerina", packageName = "workflow", moduleName = "workflow.internal"},
-	{org = "ballerina", packageName = "workflow", moduleName = "workflow.management"}
+	{org = "ballerina", packageName = "workflow", moduleName = "workflow.management"},
+	{org = "ballerina", packageName = "workflow", moduleName = "workflow.management.rest"},
+	{org = "ballerina", packageName = "workflow", moduleName = "workflow.observe"}
 ]
 
 [[package]]
@@ -457,17 +475,36 @@ modules = [
 ]
 
 [[package]]
-org = "wso2con"
-name = "expense_agent"
-version = "0.1.0"
+org = "ballerinax"
+name = "metrics.logs"
+version = "1.1.0"
 dependencies = [
-	{org = "ballerina", name = "ai"},
-	{org = "ballerina", name = "http"},
-	{org = "ballerina", name = "io"},
-	{org = "ballerina", name = "workflow"},
+	{org = "ballerina", name = "log"},
 	{org = "ballerinai", name = "observe"}
 ]
 modules = [
-	{org = "wso2con", packageName = "expense_agent", moduleName = "expense_agent"}
+	{org = "ballerinax", packageName = "metrics.logs", moduleName = "metrics.logs"}
+]
+
+[[package]]
+org = "wso2"
+name = "icp.runtime.bridge"
+version = "1.0.1"
+dependencies = [
+	{org = "ballerina", name = "crypto"},
+	{org = "ballerina", name = "file"},
+	{org = "ballerina", name = "http"},
+	{org = "ballerina", name = "io"},
+	{org = "ballerina", name = "jballerina.java"},
+	{org = "ballerina", name = "jwt"},
+	{org = "ballerina", name = "lang.runtime"},
+	{org = "ballerina", name = "log"},
+	{org = "ballerina", name = "observe"},
+	{org = "ballerina", name = "task"},
+	{org = "ballerina", name = "time"},
+	{org = "ballerina", name = "uuid"}
+]
+modules = [
+	{org = "wso2", packageName = "icp.runtime.bridge", moduleName = "icp.runtime.bridge"}
 ]
 

@@ -43,7 +43,7 @@ function LoginScreen({ onLogin }) {
       <header className="app-header">
         <div className="brand">
           <Logo />
-          <h1>Acme Insurance — Claims Portal</h1>
+          <h1>Amani General Insurance - Claims Portal</h1>
         </div>
         <p className="muted">Sign in to continue.</p>
       </header>
@@ -348,7 +348,7 @@ export default function App() {
         <div>
           <div className="brand">
             <Logo />
-            <h1>Acme Insurance — Claims Portal</h1>
+            <h1>Amani General Insurance - Claims Portal</h1>
           </div>
           <p className="muted">
             Claims at or below the auto-approve threshold are reimbursed immediately. Larger claims are routed to a

@@ -50,15 +50,13 @@ final workflow:DurableAgent expenseApproval = check new ({
     },
     model: claimsModel,
     activities: [validateClaim, reimburse],
-    humanTasks: [
-        {
-            name: "approveExpense",
-            roles: "MANAGER",
+    humanTasks: {
+        approveExpense: {
+            userRoles: "MANAGER",
             resultType: ApprovalDecision,
-            title: "Approve insurance claim",
-            description: "Requests a manager's approval to reimburse a claim over the "
-                + "auto-approve threshold. Includes the claim id, user, amount, currency, "
-                + "category and description."
+            title: "Approve expedited shipping",
+            description: "Requests a manager's approval to expedite the order's shipping. "
+                + "Pass the order id and the customer's reason as fields."
         }
-    ]
+    }
 });

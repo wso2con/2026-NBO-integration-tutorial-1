@@ -7,7 +7,7 @@
 // when a manager completes a task — no role-specific fields needed.
 export const DEMO_USERS = [
   { id: 'chris', name: 'Chris', email: 'chris@gmail.com', password: 'chris@123', role: 'CUSTOMER' },
-  { id: 'matt', name: 'Matt', email: 'matt@acme.com', password: 'matt@123', role: 'MANAGER' },
+  { id: 'matt', name: 'Matt', email: 'matt@amani.com', password: 'matt@123', role: 'MANAGER' },
 ]
 
 const STORAGE_KEY = 'expense-workflow-demo-user'

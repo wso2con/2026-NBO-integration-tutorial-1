@@ -12,3 +12,4 @@ public type ApprovalDecision record {|
     boolean approved;
     string comment;
 |};
+
