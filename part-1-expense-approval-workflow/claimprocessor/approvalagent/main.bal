@@ -16,18 +16,12 @@ listener http:Listener httpDefaultListener = http:getDefaultListener();
 }
 service /expenses on httpDefaultListener {
 
-    // Same request/response shape as ../backend's POST /expenses, so the same
-    // web UI can submit a claim to either backend unmodified.
-    resource function post .(Claim claim) returns json|error {
+    resource function post .(Claim claim) returns Response|error {
         string workflowId = check expenseApproval.run(claim.toJsonString());
         return {claimId: claim.claimId, workflowId, status: "SUBMITTED"};
     }
 
-    // Same request/response shape as ../backend's GET /expenses/{workflowId}:
-    // RUNNING while the agent is still working (including while it is
-    // suspended on the approveExpense human task), COMPLETED with the
-    // agent's final one-line summary once it is done.
-    resource function get [string workflowId]() returns json|error {
+    resource function get [string workflowId]() returns Response|error {
         string|error result = expenseApproval.getResult(workflowId);
         if result is workflow:AgentBusyError {
             return {workflowId, status: "RUNNING"};

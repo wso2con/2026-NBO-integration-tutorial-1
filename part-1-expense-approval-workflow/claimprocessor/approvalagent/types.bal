@@ -13,3 +13,9 @@ public type ApprovalDecision record {|
     string comment;
 |};
 
+public type Response record {|
+    string claimId = "";
+    string workflowId;
+    string status;
+    json result = "";
+|};
