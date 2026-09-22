@@ -1,0 +1,5 @@
+# Ballerina build output
+target/
+
+# Local runtime configuration (may contain secrets)
+Config.toml

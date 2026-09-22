@@ -1,0 +1,9 @@
+[package]
+org = "anupama"
+name = "claimtools"
+version = "0.1.0"
+distribution = "2201.13.6"
+title = "Amani-Claim-MCP-Tools"
+
+[build-options]
+sticky = true

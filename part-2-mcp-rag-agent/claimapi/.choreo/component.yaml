@@ -1,0 +1,28 @@
+schemaVersion: 1.2
+
+endpoints:
+  # Declared explicitly so both services are reachable on the project network.
+  # Devant auto-detects http:Listener services, but defaults them to Public
+  # visibility only - so claimtools had no in-cluster route to claimapi and was
+  # forced through the public gateway, where OAuth2 rejected it with a 401.
+  - name: claims
+    displayName: Claims API
+    service:
+      basePath: /claims
+      port: 8080
+    type: REST
+    networkVisibilities:
+      - Public
+      - Project
+    schemaFilePath: swagger/claims_openapi.yaml
+
+  - name: customers
+    displayName: Customers API
+    service:
+      basePath: /customers
+      port: 8081
+    type: REST
+    networkVisibilities:
+      - Public
+      - Project
+    schemaFilePath: swagger/customers_openapi.yaml

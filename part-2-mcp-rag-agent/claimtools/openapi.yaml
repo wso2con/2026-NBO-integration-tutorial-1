@@ -1,0 +1,44 @@
+openapi: 3.0.3
+info:
+  title: Amani General Insurance - Claims Handling (MCP)
+  version: 1.0.0
+  description: >
+    Streamable-HTTP MCP endpoint. All traffic is JSON-RPC 2.0 over a single
+    path; this schema exists so Devant can expose and manage the endpoint.
+paths:
+  /:
+    post:
+      summary: MCP JSON-RPC request (initialize, tools/list, tools/call)
+      operationId: mcpRequest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "200":
+          description: JSON-RPC response, or an SSE stream
+          content:
+            application/json:
+              schema:
+                type: object
+            text/event-stream:
+              schema:
+                type: string
+    get:
+      summary: Open the server-to-client SSE stream
+      operationId: mcpStream
+      responses:
+        "200":
+          description: SSE stream
+          content:
+            text/event-stream:
+              schema:
+                type: string
+    delete:
+      summary: Terminate the MCP session
+      operationId: mcpSessionDelete
+      responses:
+        "204":
+          description: Session terminated
